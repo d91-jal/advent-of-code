@@ -13,11 +13,9 @@ test3 = \
 def initialize_board(wires):
     result = []
 
-    #for wire in wires:
-    for i in range(len(wires)):
+    for wire in wires:
         board = {}
         current_x, current_y, steps = 0, 0, 0 
-        wire = wires[i]
 
         for edge in wire:
             direction = edge[0]
@@ -59,15 +57,17 @@ def find_crossings(board):
     if len(board) != 2:
         return []
 
-    # Find all common points on two wires.
+    # Find all intersections of the two wires.
     return list(board[0].keys() & board[1].keys())
         
 
 def find_closest(crossings):
+    # Return minimum distance from starting point.
     return min([abs(pos[0]) + abs(pos[1]) for pos in crossings])
 
 
 def find_shortest(board, crossings):
+    # Return minimum wire length from starting point.
     return min([board[0][pos] + board[1][pos] for pos in crossings])
 
 
