@@ -38,11 +38,17 @@ def gravity_assist(program, expected_result):
     return -1, -1
 
 
+def __main__():
+    program = [int(a) for a in open("02input.txt").read().strip().split(",")]
+    program[1] = 12
+    program[2] = 2
+    print(run_program(program))
+    print(gravity_assist(program, 19690720))
+
+__main__()
 # print(run_program(testprog1))
 # print(run_program(testprog2))
 # print(run_program(testprog3))
 # print(run_program(testprog4))
-print(run_program(theprog))
-print(gravity_assist(theprog, 19690720))
 
 

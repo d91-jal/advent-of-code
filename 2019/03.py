@@ -1,4 +1,4 @@
-test0 = [['R6', 'R2', 'U3']]
+test0 = [['R6', 'R2', 'U3', 'K3']]
 test1 = \
     [['R8', 'U5', 'L5', 'D3'],
      ['U7', 'R6', 'D4', 'L4']]
@@ -11,14 +11,13 @@ test3 = \
 
 
 def initialize_board(wires):
-    # Define the board as a two-dimensional grid.
-    size = 20
-    board = [[0 for x in range(size)] for y in range(size)]
-    current_x = current_y = size // 2
-    board[current_x][current_y] = 1
+    result = []
 
-    for wire in wires:
-        new_x = new_y = current_x = current_y = size // 2
+    #for wire in wires:
+    for i in range(len(wires)):
+        board = {}
+        current_x, current_y, steps = 0, 0, 0 
+        wire = wires[i]
 
         for edge in wire:
             direction = edge[0]
@@ -26,34 +25,58 @@ def initialize_board(wires):
 
             if direction == 'R':
                 for x in range(current_x + 1, current_x + length + 1):
-                    board[x][current_y] += 1
-                    new_x = x
-
-                current_x = new_x
+                    steps += 1
+                    board[(x, current_y)] = steps
+ 
+                current_x += length 
             elif direction == 'L':
                 for x in range(current_x - 1, (current_x - length) - 1, -1):
-                    board[x][current_y] += 1
-                    new_x = x
-
-                current_x = new_x
+                    steps += 1
+                    board[(x, current_y)] = steps
+ 
+                current_x -= length
             elif direction == 'U':
                 for y in range(current_y - 1, (current_y - length) - 1, -1):
-                    board[current_x][y] += 1
-                    new_y = y
+                    steps += 1
+                    board[(current_x, y)] = steps
 
-                current_y = new_y
+                current_y -= length
             elif direction == 'D':
                 for y in range(current_y + 1, current_y + length + 1):
-                    board[current_x][y] += 1
-                    new_y = y
+                    steps += 1
+                    board[(current_x, y)] = steps
 
-                current_y = new_y
+                current_y += length
             else:
-                print('Unknown direction supplied: {s}', direction)
+                print('Unknown direction supplied: ' + direction)
+        
+        result.append(board)
 
-    return board
+    return result
 
 
-result = initialize_board(test1)
-for row in result:
-    print(row)
+def find_crossings(board):
+    if len(board) != 2:
+        return []
+
+    # Find all common points on two wires.
+    return list(board[0].keys() & board[1].keys())
+        
+
+def find_closest(crossings):
+    return min([abs(pos[0]) + abs(pos[1]) for pos in crossings])
+
+
+def find_shortest(board, crossings):
+    return min([board[0][pos] + board[1][pos] for pos in crossings])
+
+
+my_input = [row.strip().split(',') for row in open("03input.txt").read().split('\n')]
+#print(my_input)
+board = initialize_board(my_input)
+crossings = find_crossings(board)
+closest = find_closest(crossings)
+shortest = find_shortest(board, crossings)
+#print(crossings)
+print(closest)
+print(shortest)
