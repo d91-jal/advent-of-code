@@ -13,14 +13,18 @@ test3 = \
 def initialize_board(wires):
     result = []
 
+    # Loop over wire definitions.
     for wire in wires:
         board = {}
         current_x, current_y, steps = 0, 0, 0 
 
+        # Loop over wire sections.
         for edge in wire:
             direction = edge[0]
             length = int(edge[1:])
 
+            # Add each coordinate the section passes to a dictionary and store the cumulative distance. 
+            # TODO: refactor code duplication below.
             if direction == 'R':
                 for x in range(current_x + 1, current_x + length + 1):
                     steps += 1
@@ -57,12 +61,12 @@ def find_crossings(board):
     if len(board) != 2:
         return []
 
-    # Find all intersections of the two wires.
+    # Find all intersections of the two wires (i.e. coordinates existing in both wires).
     return list(board[0].keys() & board[1].keys())
         
 
 def find_closest(crossings):
-    # Return minimum distance from starting point.
+    # Return minimum physical distance from starting point.
     return min([abs(pos[0]) + abs(pos[1]) for pos in crossings])
 
 
