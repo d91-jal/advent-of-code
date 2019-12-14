@@ -1,27 +1,29 @@
 test1 = ['COM)B', 'B)C', 'C)D', 'D)E', 'E)F', 'B)G', 'G)H', 'D)I', 'E)J', 'J)K', 'K)L']
 
 
-def count_sat(universe, planet):
-    subuniverse = [pair for pair in universe if pair.split(')')[0] == planet]
-    subcount = 0
+def count_sat(universe, body):
+    """ Calculate the sum of orbits and sub-orbits (recursively) of a body in the universe. """
+    sub_universe = [pair for pair in universe if pair.split(')')[0] == body]
+    sub_count = 0
 
-    for sat in [pair.split(')')[1] for pair in subuniverse]:
-        subcount += count_sat(universe, sat)
+    for sat in [pair.split(')')[1] for pair in sub_universe]:
+        sub_count += count_sat(universe, sat)
 
-    return len(subuniverse) + subcount
+    return len(sub_universe) + sub_count
 
 
-def find_path(universe, sat):
-    result = [sat]
+def find_path(universe, body):
+    """ Trace the path from the center of the universe to a body. """
+    result = [body]
 
     while True:
-        hub = [pair.split(')')[0] for pair in universe if pair.split(')')[1] == sat]
+        hub = [pair.split(')')[0] for pair in universe if pair.split(')')[1] == body]
 
         if len(hub) == 0:
             break
         else:
             result.append(hub[0])
-            sat = hub[0]
+            body = hub[0]
 
     result.reverse()
     return result
@@ -55,7 +57,7 @@ for i in range(min(len(you_path), len(san_path))):
         distance = len(you_path[i:] + san_path[i:]) - 2
         break
 
-print(len(distance) - 2)
+print(distance)
 
 
 
