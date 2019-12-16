@@ -1,4 +1,5 @@
 def is_valid_part_1(number):
+    """ Loop through all candidate numbers and check if they abide by the rules. """
     if number < 347312 or number > 805915:
         return False
 
@@ -14,6 +15,7 @@ def is_valid_part_1(number):
 
 
 def is_valid_part_2(number):
+    """ Loop through all candidate numbers and check if they abide by the rules. """
     if number < 347312 or number > 805915:
         return False
 
@@ -38,4 +40,3 @@ def part_2():
 
 print(len(part_1()))
 print(len(part_2()))
-#print(part_2())

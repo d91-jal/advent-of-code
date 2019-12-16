@@ -43,12 +43,9 @@ for com in coms:
 print(sum(comdict.values()))
 # print(comdict)
 
-# For part 2, find closest common ancestors for the two satellites.
+# For part 2, find closest common hub for the two bodies.
 you_path = find_path(my_input, "YOU")
 san_path = find_path(my_input, "SAN")
-
-# print(you_path)
-# print(san_path)
 
 for i in range(min(len(you_path), len(san_path))):
     if you_path[i] != san_path[i]:

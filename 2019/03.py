@@ -76,11 +76,10 @@ def find_shortest(board, crossings):
 
 
 my_input = [row.strip().split(',') for row in open("03input.txt").read().split('\n')]
-#print(my_input)
-board = initialize_board(my_input)
-crossings = find_crossings(board)
+my_board = initialize_board(my_input)
+crossings = find_crossings(my_board)
 closest = find_closest(crossings)
-shortest = find_shortest(board, crossings)
-#print(crossings)
+shortest = find_shortest(my_board, crossings)
+# print(crossings)
 print(closest)
 print(shortest)
