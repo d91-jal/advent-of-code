@@ -12,7 +12,7 @@ def gravity_assist(program, expected_result):
         for verb in range(0, 99):
             testprog = program[:]
             testprog[1], testprog[2] = noun, verb
-            result = run_program(testprog)
+            result = run_program(testprog)[0]
 
             if result[0] == expected_result:
                 return (noun * 100) + verb
@@ -23,7 +23,7 @@ def gravity_assist(program, expected_result):
 program = [int(a) for a in open("02input.txt").read().strip().split(",")]
 program[1] = 12
 program[2] = 2
-print(run_program(program))
+print(run_program(program)[0])
 print(gravity_assist(program, 19690720))
 
 

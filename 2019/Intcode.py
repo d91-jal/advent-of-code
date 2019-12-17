@@ -1,5 +1,15 @@
-def run_program(program):
+def run_program(program, input_vals=[]):
+    """ The input_vals parameter can be used to send in pre-defined inputs.
+        These will be used instead of prompting the user for input until all
+        have been used up.
+
+        Returns a tuple containing
+            [0] result: the program state after execution has finished
+            [1] output_buffer: any output values yielded during execution
+        """
+
     result = program[:]
+    output_buffer = []
     p = 0
 
     while p < len(result):
@@ -15,10 +25,13 @@ def run_program(program):
             result[result[p + 3]] = get_param(mode1, result, p + 1) * get_param(mode2, result, p + 2)
             p += 4
         elif opcode == "03":    # Read input
-            result[result[p + 1]] = read_input()
+            input_val = input_vals.pop(0) if len(input_vals) > 0 else read_input()
+            result[result[p + 1]] = input_val
             p += 2
         elif opcode == "04":    # Print output
-            print(result[result[p + 1]])
+            out_val = result[result[p + 1]]
+            output_buffer.append(out_val)
+            print(out_val)
             p += 2
         elif opcode == "05":    # Jump if true
             if get_param(mode1, result, p + 1) != 0:
@@ -39,7 +52,7 @@ def run_program(program):
         else:
             p += 1
 
-    return result
+    return result, output_buffer
 
 
 def parse_instruction(instruction):
