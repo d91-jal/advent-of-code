@@ -1,21 +1,22 @@
 import itertools
-from Intcode import run_program
+from IntCode import IntCode
 
 
 def part1(my_prog, param_sets):
+    intcode = IntCode()
     highscore = 0
 
     for param_set in param_sets:
-        program = my_prog[:]
         input_vals = [0, 0]
 
         for phase in param_set:
             input_vals[0] = phase
-            result = run_program(program, input_vals[:])
-            input_vals[1] = result[1][0]
-            program = my_input[:]
+            intcode.input_buffer = input_vals[:]
+            intcode.program = my_prog[:]
+            intcode.run_program()
+            input_vals[1] = intcode.output_buffer[0]
 
-        highscore = input_vals[1] if input_vals[1] > highscore else highscore
+        highscore = intcode.output_buffer[0] if intcode.output_buffer[0] > highscore else highscore
 
     return highscore
 
@@ -35,11 +36,11 @@ testprog3 = [3, 31, 3, 32, 1002, 32, 10, 32, 1001, 31, -2, 31, 1007, 31, 0, 33, 
              31, 31, 4, 31, 99, 0, 0, 0]
 testparams3 = [1, 0, 4, 3, 2]
 
-my_input = testprog3
-perms1 = [testparams3]
-# my_input = [int(a) for a in open("07input.txt").read().strip().split(",")]
-# params1 = [0, 1, 2, 3, 4]
-# perms1 = list(itertools.permutations(params1))
+# my_input = testprog3
+# perms1 = [testparams3]
+my_input = [int(a) for a in open("07input.txt").read().strip().split(",")]
+params1 = [0, 1, 2, 3, 4]
+perms1 = list(itertools.permutations(params1))
 # print(perms)
 print("Part 1 answer: ", part1(my_input, perms1))
 
