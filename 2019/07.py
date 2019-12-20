@@ -22,8 +22,22 @@ def part1(my_prog, param_sets):
 
 
 def part2(my_prog, param_sets):
-    """ Ugh, looks like we need to make the Intcode computer stateful between executions for this one..."""
+    intcodes = [IntCode(my_prog[:]) for _ in range(5)]
     highscore = 0
+    ampidx = 0
+
+    for param_set in param_sets:
+        input_vals = [0, 0]
+
+        for phase in param_set:
+            input_vals[0] = phase
+            intcode = intcodes[ampidx]
+            intcode.input_buffer = input_vals[:]
+            intcode.run_program()
+            input_vals[1] = intcode.output_buffer
+            ampidx = (ampidx + 1) % len(intcodes)
+
+        highscore = intcode.output_buffer[0] if intcode.output_buffer[0] > highscore else highscore
 
     return highscore
 

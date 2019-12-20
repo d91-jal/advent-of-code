@@ -25,6 +25,7 @@ class IntCode:
         self.program = program
         self.input_buffer = []
         self.output_buffer = []
+        self.running = False
 
     def run_program(self):
         """ The input_vals parameter can be used to send in pre-defined inputs.
@@ -37,6 +38,7 @@ class IntCode:
             """
 
         result = self.program[:]
+        self.running = True
         self.output_buffer = []
         p = 0
 
@@ -81,6 +83,7 @@ class IntCode:
                 p += 1
 
         self.program = result[:]
+        self.running = False
         return
 
 
