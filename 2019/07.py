@@ -22,11 +22,11 @@ def part1(my_prog, param_sets):
 
 
 def part2(my_prog, param_sets):
-    intcodes = [IntCode(my_prog[:]) for _ in range(5)]
     highscore = 0
     ampidx = 0
 
     for param_set in param_sets:
+        intcodes = [IntCode(my_prog[:]) for _ in range(5)]
         input_vals = [0, 0]
 
         for phase in param_set:
