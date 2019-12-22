@@ -21,69 +21,64 @@ def read_input():
 
 class IntCode:
 
-    def __init__(self, program=[]):
+    def __init__(self, program=[], input_buffer=[]):
         self.program = program
-        self.input_buffer = []
+        self.input_buffer = input_buffer
         self.output_buffer = []
         self.running = False
+        self.p = 0
 
     def run_program(self):
-        """ The input_vals parameter can be used to send in pre-defined inputs.
-            These will be used instead of prompting the user for input until all
-            have been used up.
-
-            Returns a tuple containing
-                [0] result: the program state after execution has finished
-                [1] output_buffer: any output values yielded during execution
-            """
-
         result = self.program[:]
         self.running = True
-        self.output_buffer = []
-        p = 0
+        # self.output_buffer = []
 
-        while p < len(result):
-            if (p + 1 > len(result)) or (result[p] == 99):
+        while self.p < len(result):
+            if (self.p + 1 > len(result)) or (result[self.p] == 99):
+                self.p = 0
+                self.running = False
                 break
 
-            opcode, mode1, mode2, mode3 = parse_instruction(str(result[p]))
+            opcode, mode1, mode2, mode3 = parse_instruction(str(result[self.p]))
 
             if opcode == "01":      # Addition
-                result[result[p + 3]] = get_param(mode1, result, p + 1) + get_param(mode2, result, p + 2)
-                p += 4
+                result[result[self.p + 3]] = get_param(mode1, result, self.p + 1) + get_param(mode2, result, self.p + 2)
+                self.p += 4
             elif opcode == "02":    # Multiplication
-                result[result[p + 3]] = get_param(mode1, result, p + 1) * get_param(mode2, result, p + 2)
-                p += 4
+                result[result[self.p + 3]] = get_param(mode1, result, self.p + 1) * get_param(mode2, result, self.p + 2)
+                self.p += 4
             elif opcode == "03":    # Read input
                 input_val = self.input_buffer.pop(0) if len(self.input_buffer) > 0 else read_input()
-                result[result[p + 1]] = input_val
-                p += 2
+                result[result[self.p + 1]] = input_val
+                self.p += 2
             elif opcode == "04":    # Print output
-                out_val = result[result[p + 1]]
+                out_val = result[result[self.p + 1]]
                 self.output_buffer.append(out_val)
                 print(out_val)
-                p += 2
+                self.p += 2
+                break
             elif opcode == "05":    # Jump if true
-                if get_param(mode1, result, p + 1) != 0:
-                    p = get_param(mode2, result, p + 2)
+                if get_param(mode1, result, self.p + 1) != 0:
+                    self.p = get_param(mode2, result, self.p + 2)
                 else:
-                    p += 3
+                    self.p += 3
             elif opcode == "06":    # Jump if false
-                if get_param(mode1, result, p + 1) == 0:
-                    p = get_param(mode2, result, p + 2)
+                if get_param(mode1, result, self.p + 1) == 0:
+                    self.p = get_param(mode2, result, self.p + 2)
                 else:
-                    p += 3
+                    self.p += 3
             elif opcode == "07":    # Less than
-                result[result[p + 3]] = 1 if get_param(mode1, result, p + 1) < get_param(mode2, result, p + 2) else 0
-                p += 4
+                result[result[self.p + 3]] = \
+                    1 if get_param(mode1, result, self.p + 1) < get_param(mode2, result, self.p + 2) else 0
+                self.p += 4
             elif opcode == "08":    # Equals
-                result[result[p + 3]] = 1 if get_param(mode1, result, p + 1) == get_param(mode2, result, p + 2) else 0
-                p += 4
-            else:
-                p += 1
+                result[result[self.p + 3]] = \
+                    1 if get_param(mode1, result, self.p + 1) == get_param(mode2, result, self.p + 2) else 0
+                self.p += 4
+            else:                   # Undefined = NOP
+                self.p += 1
 
         self.program = result[:]
-        self.running = False
         return
 
 
