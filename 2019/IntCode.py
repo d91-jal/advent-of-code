@@ -27,6 +27,7 @@ class IntCode:
         self.output_buffer = []
         self.running = False
         self.p = 0
+        self.stdout = False
 
     def run_program(self):
         result = self.program[:]
@@ -54,7 +55,10 @@ class IntCode:
             elif opcode == "04":    # Print output
                 out_val = result[result[self.p + 1]]
                 self.output_buffer.append(out_val)
-                print(out_val)
+
+                if self.stdout:
+                    print(out_val)
+
                 self.p += 2
                 break
             elif opcode == "05":    # Jump if true
