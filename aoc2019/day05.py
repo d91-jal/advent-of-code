@@ -1,4 +1,4 @@
-from IntCode import IntCode
+from aoc2019.intcode import IntCode
 
 
 def run(prog, instr):

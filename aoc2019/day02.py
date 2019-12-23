@@ -1,4 +1,4 @@
-from IntCode import IntCode
+from aoc2019.intcode import IntCode
 
 
 def gravity_assist(program, expected_result):

@@ -1,5 +1,5 @@
 import itertools
-from IntCode import IntCode
+from aoc2019.intcode import IntCode
 
 
 def part1(my_prog, param_sets):
