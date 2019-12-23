@@ -1,4 +1,16 @@
+from aoc2019.intcode import IntCode
+
+test_prog_1 = [109, 1, 204, -1, 1001, 100, 1, 100, 1008, 100, 16, 101, 1006, 101, 0, 99]
+
+
 def part_1():
+    intcode = IntCode(test_prog_1, [], 2000)
+    intcode.running = True
+
+    while intcode.running:
+        intcode.run_program()
+
+    print(intcode.output_buffer)
     return
 
 
