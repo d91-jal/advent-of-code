@@ -68,7 +68,7 @@ testparams3 = [1, 0, 4, 3, 2]
 
 # my_input = testprog3
 # perms1 = [testparams3]
-my_input = [int(a) for a in open("07input.txt").read().strip().split(",")]
+my_input = [int(a) for a in open("resources/07input.txt").read().strip().split(",")]
 params1 = [0, 1, 2, 3, 4]
 perms1 = list(itertools.permutations(params1))
 # print(perms)

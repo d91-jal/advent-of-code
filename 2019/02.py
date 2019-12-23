@@ -35,7 +35,7 @@ testprog3 = [2, 4, 4, 5, 99, 0]
 testprog4 = [1, 1, 1, 4, 99, 5, 6, 0, 99]
 
 
-program = [int(a) for a in open("02input.txt").read().strip().split(",")]
+program = [int(a) for a in open("resources/02input.txt").read().strip().split(",")]
 program[1] = 12
 program[2] = 2
 print((part1(program))[0])

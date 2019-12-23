@@ -17,7 +17,7 @@ def part2(prog):
     return run(prog, 5)
 
 
-program = [int(a) for a in open("05input.txt").read().strip().split(",")]
+program = [int(a) for a in open("resources/05input.txt").read().strip().split(",")]
 print(part1(program))
 print(part2(program))
 

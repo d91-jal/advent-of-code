@@ -49,7 +49,7 @@ def part2(pixels, width, height):
 
 img_width = 25
 img_height = 6
-my_input = open("08input.txt").read().strip()
+my_input = open("resources/08input.txt").read().strip()
 print(part1(my_input, img_width, img_height))
 img = part2(my_input, img_width, img_height)
 print_img(img, img_width, img_height)

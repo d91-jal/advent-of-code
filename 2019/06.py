@@ -30,7 +30,7 @@ def find_path(universe, body):
 
 
 # my_input = test1
-my_input = [a for a in open("06input.txt").read().strip().split("\n")]
+my_input = [a for a in open("resources/06input.txt").read().strip().split("\n")]
 # print(my_input)
 
 coms = set([pair.split(")")[0] for pair in my_input])

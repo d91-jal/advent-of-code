@@ -75,7 +75,7 @@ def find_shortest(board, crossings):
     return min([board[0][pos] + board[1][pos] for pos in crossings])
 
 
-my_input = [row.strip().split(',') for row in open("03input.txt").read().split('\n')]
+my_input = [row.strip().split(',') for row in open("resources/03input.txt").read().split('\n')]
 my_board = initialize_board(my_input)
 crossings = find_crossings(my_board)
 closest = find_closest(crossings)
