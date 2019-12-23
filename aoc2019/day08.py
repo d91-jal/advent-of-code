@@ -23,12 +23,15 @@ def get_flattened_layer(layers):
     return result
 
 
-def print_img(pixels, width, height):
+def print_img(pixels, width):
     for i in range(0, len(pixels), width):
         print(str(pixels[i:i+width]).replace('0', ' ').replace('1', 'X'))
 
 
-def part1(pixels, width, height):
+def part_1():
+    width = 25
+    height = 6
+    pixels = open("resources/08input.txt").read().strip()
     my_layers = get_layers(pixels, width, height)
     counts = (width * height, width * height, width * height)
 
@@ -43,16 +46,24 @@ def part1(pixels, width, height):
     return counts[1] * counts[2]
 
 
-def part2(pixels, width, height):
+def part_2():
+    width = 25
+    height = 6
+    pixels = open("resources/08input.txt").read().strip()
     return get_flattened_layer(get_layers(pixels, width, height))
 
 
-img_width = 25
-img_height = 6
-my_input = open("resources/08input.txt").read().strip()
-print(part1(my_input, img_width, img_height))
-img = part2(my_input, img_width, img_height)
-print_img(img, img_width, img_height)
+def main():
+    print("Day 8 part 1 answer: ", part_1())
+    img = part_2()
+    print("Day 8 part 2 answer: ", part_2())
+    print_img(img, 25)
+
+
+if __name__ == "__main__":
+    main()
+
+
 
 
 

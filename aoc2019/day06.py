@@ -29,33 +29,40 @@ def find_path(universe, body):
     return result
 
 
-# my_input = test1
-my_input = [a for a in open("resources/06input.txt").read().strip().split("\n")]
-# print(my_input)
+def part_1():
+    """ TODO: Find more efficient solution... """
+    my_input = [a for a in open("resources/06input.txt").read().strip().split("\n")]
+    coms = set([pair.split(")")[0] for pair in my_input])
+    comdict = dict.fromkeys(coms, 0)
 
-coms = set([pair.split(")")[0] for pair in my_input])
-comdict = dict.fromkeys(coms, 0)
+    for com in coms:
+        comdict[com] += count_sat(my_input, com)
 
-# Brute force solution for part 1.
-for com in coms:
-    comdict[com] += count_sat(my_input, com)
+    return sum(comdict.values())
 
-print(sum(comdict.values()))
-# print(comdict)
 
-# For part 2, find closest common hub for the two bodies.
-you_path = find_path(my_input, "YOU")
-san_path = find_path(my_input, "SAN")
+def part_2():
+    my_input = [a for a in open("resources/06input.txt").read().strip().split("\n")]
+    you_path = find_path(my_input, "YOU")
+    san_path = find_path(my_input, "SAN")
 
-for i in range(min(len(you_path), len(san_path))):
-    if you_path[i] != san_path[i]:
-        print(you_path[i:])
-        print(san_path[i:])
-        distance = len(you_path[i:] + san_path[i:]) - 2
-        break
+    for i in range(min(len(you_path), len(san_path))):
+        if you_path[i] != san_path[i]:
+            # print(you_path[i:])
+            # print(san_path[i:])
+            distance = len(you_path[i:] + san_path[i:]) - 2
+            break
 
-print(distance)
+    return distance
 
+
+def main():
+    print("Day 6 part 1 answer: ", part_1())
+    print("Day 6 part 2 answer: ", part_2())
+
+
+if __name__ == "__main__":
+    main()
 
 
 

@@ -18,25 +18,33 @@ def gravity_assist(program, expected_result):
     return -1, -1
 
 
-def part1(prog):
+def part_1():
+    prog = [int(a) for a in open("resources/02input.txt").read().strip().split(",")]
+    prog[1] = 12
+    prog[2] = 2
     intcode = IntCode()
     intcode.program = prog[:]
     intcode.run_program()
-    return intcode.program
+    return intcode.program[0]
 
 
-def part2(prog, expected):
-    return gravity_assist(prog, expected)
+def part_2():
+    prog = [int(a) for a in open("resources/02input.txt").read().strip().split(",")]
+    prog[1] = 12
+    prog[2] = 2
+    return gravity_assist(prog, 19690720)
 
 
-testprog1 = [1, 0, 0, 0, 99]
-testprog2 = [2, 3, 0, 3, 99]
-testprog3 = [2, 4, 4, 5, 99, 0]
-testprog4 = [1, 1, 1, 4, 99, 5, 6, 0, 99]
+def main():
+    print("Day 2 part 1 answer: ", part_1())
+    print("Day 2 part 2 answer: ", part_2())
 
 
-program = [int(a) for a in open("resources/02input.txt").read().strip().split(",")]
-program[1] = 12
-program[2] = 2
-print((part1(program))[0])
-print(part2(program, 19690720))
+if __name__ == "__main__":
+    main()
+
+# testprog1 = [1, 0, 0, 0, 99]
+# testprog2 = [2, 3, 0, 3, 99]
+# testprog3 = [2, 4, 4, 5, 99, 0]
+# testprog4 = [1, 1, 1, 4, 99, 5, 6, 0, 99]
+

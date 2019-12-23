@@ -75,11 +75,26 @@ def find_shortest(board, crossings):
     return min([board[0][pos] + board[1][pos] for pos in crossings])
 
 
-my_input = [row.strip().split(',') for row in open("resources/03input.txt").read().split('\n')]
-my_board = initialize_board(my_input)
-crossings = find_crossings(my_board)
-closest = find_closest(crossings)
-shortest = find_shortest(my_board, crossings)
-# print(crossings)
-print(closest)
-print(shortest)
+def part_1():
+    my_input = [row.strip().split(',') for row in open("resources/03input.txt").read().split('\n')]
+    my_board = initialize_board(my_input)
+    crossings = find_crossings(my_board)
+    return find_closest(crossings)
+
+
+def part_2():
+    my_input = [row.strip().split(',') for row in open("resources/03input.txt").read().split('\n')]
+    my_board = initialize_board(my_input)
+    crossings = find_crossings(my_board)
+    return find_shortest(my_board, crossings)
+
+
+def main():
+    print("Day 3 part 1 answer: ", part_1())
+    print("Day 3 part 2 answer: ", part_2())
+
+
+if __name__ == "__main__":
+    main()
+
+

@@ -31,12 +31,17 @@ def is_valid_part_2(number):
 
 
 def part_1():
-    return [a for a in range(347312, 805916) if is_valid_part_1(a)]
+    return len([a for a in range(347312, 805916) if is_valid_part_1(a)])
 
 
 def part_2():
-    return [a for a in range(347312, 805916) if is_valid_part_2(a)]
+    return len([a for a in range(347312, 805916) if is_valid_part_2(a)])
 
 
-print(len(part_1()))
-print(len(part_2()))
+def main():
+    print("Day 4 part 1 answer: ", part_1())
+    print("Day 4 part 2 answer: ", part_2())
+
+
+if __name__ == "__main__":
+    main()

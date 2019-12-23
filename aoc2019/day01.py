@@ -35,11 +35,24 @@ def calc_recursive_fuel_req(weights):
     return result
 
 
+def part_1():
+    return calc_rocket_weights_fuel_req(rocket_weights)
+
+
+def part_2():
+    return calc_recursive_fuel_req(rocket_weights)
+
+
 # print(calc_fuel_req(12))
 # print(calc_fuel_req(14))
 # print(calc_fuel_req(1969))
 # print(calc_fuel_req(100756))
-print(calc_rocket_weights_fuel_req(rocket_weights))
-print(calc_recursive_fuel_req(rocket_weights))
 
+def main():
+    print("Day 1 part 1 answer: ", part_1())
+    print("Day 1 part 2 answer: ", part_2())
+
+
+if __name__ == "__main__":
+    main()
 
