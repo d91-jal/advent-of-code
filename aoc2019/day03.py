@@ -76,14 +76,18 @@ def find_shortest(board, crossings):
 
 
 def part_1():
-    my_input = [row.strip().split(',') for row in open("resources/03input.txt").read().split('\n')]
+    input_file = open("resources/03input.txt")
+    my_input = [row.strip().split(',') for row in input_file.read().split('\n')]
+    input_file.close()
     my_board = initialize_board(my_input)
     crossings = find_crossings(my_board)
     return find_closest(crossings)
 
 
 def part_2():
-    my_input = [row.strip().split(',') for row in open("resources/03input.txt").read().split('\n')]
+    input_file = open("resources/03input.txt")
+    my_input = [row.strip().split(',') for row in input_file.read().split('\n')]
+    input_file.close()
     my_board = initialize_board(my_input)
     crossings = find_crossings(my_board)
     return find_shortest(my_board, crossings)

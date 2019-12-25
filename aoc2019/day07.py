@@ -30,7 +30,9 @@ testparams5 = [9, 7, 8, 5, 6]
 
 
 def part_1():
-    my_prog = [int(a) for a in open("resources/07input.txt").read().strip().split(",")]
+    input_file = open("resources/07input.txt")
+    my_prog = [int(a) for a in input_file.read().strip().split(",")]
+    input_file.close()
     params1 = [0, 1, 2, 3, 4]
     param_sets = list(itertools.permutations(params1))
 
@@ -54,7 +56,9 @@ def part_1():
 
 
 def part_2():
-    my_prog = [int(a) for a in open("resources/07input.txt").read().strip().split(",")]
+    input_file = open("resources/07input.txt")
+    my_prog = [int(a) for a in input_file.read().strip().split(",")]
+    input_file.close()
     params1 = [5, 6, 7, 8, 9]
     param_sets = list(itertools.permutations(params1))
 

@@ -31,7 +31,9 @@ def print_img(pixels, width):
 def part_1():
     width = 25
     height = 6
-    pixels = open("resources/08input.txt").read().strip()
+    input_file = open("resources/08input.txt")
+    pixels = input_file.read().strip()
+    input_file.close()
     my_layers = get_layers(pixels, width, height)
     counts = (width * height, width * height, width * height)
 
@@ -49,7 +51,9 @@ def part_1():
 def part_2():
     width = 25
     height = 6
-    pixels = open("resources/08input.txt").read().strip()
+    input_file = open("resources/08input.txt")
+    pixels = input_file.read().strip()
+    input_file.close()
     return get_flattened_layer(get_layers(pixels, width, height))
 
 

@@ -19,7 +19,9 @@ def gravity_assist(program, expected_result):
 
 
 def part_1():
-    prog = [int(a) for a in open("resources/02input.txt").read().strip().split(",")]
+    input_file = open("resources/02input.txt")
+    prog = [int(a) for a in input_file.read().strip().split(",")]
+    input_file.close()
     prog[1] = 12
     prog[2] = 2
     intcode = IntCode()
@@ -29,7 +31,9 @@ def part_1():
 
 
 def part_2():
-    prog = [int(a) for a in open("resources/02input.txt").read().strip().split(",")]
+    input_file = open("resources/02input.txt")
+    prog = [int(a) for a in input_file.read().strip().split(",")]
+    input_file.close()
     prog[1] = 12
     prog[2] = 2
     return gravity_assist(prog, 19690720)

@@ -31,7 +31,9 @@ def find_path(universe, body):
 
 def part_1():
     """ TODO: Find more efficient solution... """
-    my_input = [a for a in open("resources/06input.txt").read().strip().split("\n")]
+    input_file = open("resources/06input.txt")
+    my_input = [a for a in input_file.read().strip().split("\n")]
+    input_file.close()
     coms = set([pair.split(")")[0] for pair in my_input])
     comdict = dict.fromkeys(coms, 0)
 
@@ -42,7 +44,9 @@ def part_1():
 
 
 def part_2():
-    my_input = [a for a in open("resources/06input.txt").read().strip().split("\n")]
+    input_file = open("resources/06input.txt")
+    my_input = [a for a in input_file.read().strip().split("\n")]
+    input_file.close()
     you_path = find_path(my_input, "YOU")
     san_path = find_path(my_input, "SAN")
 

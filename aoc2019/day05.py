@@ -12,12 +12,16 @@ def run(prog, instr):
 
 
 def part_1():
-    prog = [int(a) for a in open("resources/05input.txt").read().strip().split(",")]
+    input_file = open("resources/05input.txt")
+    prog = [int(a) for a in input_file.read().strip().split(",")]
+    input_file.close()
     return run(prog, 1)
 
 
 def part_2():
-    prog = [int(a) for a in open("resources/05input.txt").read().strip().split(",")]
+    input_file = open("resources/05input.txt")
+    prog = [int(a) for a in input_file.read().strip().split(",")]
+    input_file.close()
     return run(prog, 5)
 
 
