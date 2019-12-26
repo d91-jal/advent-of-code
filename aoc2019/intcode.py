@@ -25,12 +25,12 @@ class IntCode:
         self.memory_size = memory_size
 
     def get_param(self, mode, program, index):
-        if mode == "0":
+        if mode == "0":     # Position mode
             return program[program[index]]
-        elif mode == "1":
+        elif mode == "1":   # Immediate mode
             return program[index]
-        elif mode == "2":
-            return program[program[index + self.relative_base]]
+        elif mode == "2":   # Relative mode
+            return program[program[index] + self.relative_base]
 
     def run_program(self):
         result = self.program[:]
@@ -85,7 +85,7 @@ class IntCode:
                     1 if self.get_param(mode1, result, self.p + 1) == self.get_param(mode2, result, self.p + 2) else 0
                 self.p += 4
             elif opcode == "09":    # Relative base
-                self.relative_base = self.get_param(mode1, result, self.p + 1)
+                self.relative_base += self.get_param(mode1, result, self.p + 1)
                 self.p += 2
             else:                   # Undefined = NOP
                 self.p += 1
