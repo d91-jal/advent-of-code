@@ -22,12 +22,22 @@ def part_1():
     while intcode.running:
         intcode.run_program()
 
-    print(intcode.output_buffer)
-    return
+    # print(intcode.output_buffer)
+    return intcode.output_buffer[0]
 
 
 def part_2():
-    return
+    input_file = open("resources/09input.txt")
+    my_prog = [int(a) for a in input_file.read().strip().split(",")]
+    input_file.close()
+    intcode = IntCode(my_prog, [2], 2000)
+    intcode.running = True
+
+    while intcode.running:
+        intcode.run_program()
+
+    # print(intcode.output_buffer)
+    return intcode.output_buffer[0]
 
 
 def main():
