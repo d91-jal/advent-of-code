@@ -13,6 +13,7 @@ def find_terms(my_input, bitmap, target_sum):
     # No solution found.
     return 0, 0
 
+
 def part_1():
     # Read input into an array.
     input_file = open("resources/input01.txt")
@@ -38,13 +39,14 @@ def part_2():
     for i in my_input:
         result = find_terms(my_input, bitmap, target_sum - i) 
         if result != (0, 0):
-            return i, result
+            return i, result[0], result[1]
     
     return 0, 0, 0
 
 
 def main():
-    print(part_1())
+    result1 = part_1()
+    print(result1[0], "+", result1[1], "=", sum(result1))
     print(part_2())
 
 
