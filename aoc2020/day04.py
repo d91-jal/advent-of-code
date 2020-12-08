@@ -17,7 +17,7 @@ def validate_int(doc, field, min_val, max_val):
         return False
 
     val = int(doc[field])
-    return val >= min_val and val <= max_val
+    return min_val <= val <= max_val
 
 
 def validate_byr(doc):
@@ -29,7 +29,7 @@ def validate_iyr(doc):
 
 
 def validate_eyr(doc):
-    return validate_int(doc, 'byr', 1920, 2002)
+    return validate_int(doc, 'eyr', 2020, 2030)
 
 
 def validate_hgt(doc):
@@ -45,9 +45,9 @@ def validate_hgt(doc):
     unit = hgt[-2:]
 
     if unit == 'in':
-        return int(val) >= 59 and int(val) <= 76
+        return 59 <= int(val) <= 76
     elif unit == 'cm':
-        return int(val) >= 150 and int(val) <= 193
+        return 150 <= int(val) <= 193
 
     return False
 
@@ -63,9 +63,6 @@ def validate_hcl(doc):
 
     result = all(c in string.hexdigits for c in val[-6:])
 
-    if result == False:
-        print('hcl invalid:', val)
-        
     return result
 
 
@@ -73,7 +70,7 @@ def validate_ecl(doc):
     if 'ecl' not in doc:
         return False
 
-    return doc['ecl'] in ['amb','blu','brn','gry','grn','hzl','oth']
+    return doc['ecl'] in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']
 
 
 def validate_pid(doc):
@@ -108,7 +105,7 @@ def part_1():
     valid_count = 0
 
     for doc in docs:
-        if validate_doc_rule_1(doc, ['byr','iyr','eyr','hgt','hcl','ecl','pid']):
+        if validate_doc_rule_1(doc, ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']):
             valid_count += 1
 
     return valid_count
@@ -130,7 +127,6 @@ def part_2():
 
     for doc in docs:
         if validate_doc_rule_2(doc):
-            #print(doc['pid'], "is valid.")
             valid_count += 1
 
     return valid_count
