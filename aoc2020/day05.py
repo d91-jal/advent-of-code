@@ -22,8 +22,8 @@ def part_1():
 def part_2():
     seat_ids = convert_input_to_seat_ids()
     # The id of the missing seat must be the difference between the sum of 
-    # all possible seat ids and the sum of the ones in the list. 
-    return ((((max(seat_ids) + min(seat_ids)) / 2) * (len(seat_ids) + 1)) - sum(seat_ids))    
+    # all possible seat ids and the sum of the ones actually in the list. 
+    return (((max(seat_ids) + min(seat_ids)) / 2) * (len(seat_ids) + 1)) - sum(seat_ids)
 
 
 def main():

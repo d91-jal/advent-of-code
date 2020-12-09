@@ -61,9 +61,8 @@ def validate_hcl(doc):
     if len(val) != 7:
         return False
 
-    result = all(c in string.hexdigits for c in val[-6:])
-
-    return result
+    # string.hexdigits new feature in python 3.8
+    return all(c in string.hexdigits for c in val[-6:])
 
 
 def validate_ecl(doc):
