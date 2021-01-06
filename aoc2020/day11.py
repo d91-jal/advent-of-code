@@ -31,6 +31,48 @@ def find_adjacent(table, x_pos, y_pos, symbol):
     return result
 
 
+def find_adjacent_2(table, x_pos, y_pos, symbol):
+    vecs = [(1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0), (-1, -1), (0, -1), (1, -1)]
+    y_max = len(table) - 1
+    x_max = len(table[0]) - 1
+    result = 0
+
+    for vec in vecs:
+        x = x_pos + vec[0]
+        y = y_pos + vec[1]
+
+        if (0 <= x <= x_max) and (0 <= y <= y_max):
+            result += 1 if table[y][x] == symbol else 0
+
+    return result
+
+
+def find_visible(table, x_pos, y_pos, symbol):
+    vecs = [(1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0), (-1, -1), (0, -1), (1, -1)]
+    y_max = len(table) - 1
+    x_max = len(table[0]) - 1
+    result = 0 
+    floor = ord('.')
+
+    # Find the first non-floor tile in each direction and return the number matching <symbol>.    
+    for vec in vecs:        
+        x = x_pos + vec[0]
+        y = y_pos + vec[1]
+        found = False
+
+        while (0 <= x <= x_max) and (0 <= y <= y_max) and not found:            
+            if table[y][x] == symbol:
+                result += 1
+                found = True
+            elif table[y][x] == floor:
+                x = x + vec[0]
+                y = y + vec[1]
+            else:
+                found = True
+
+    return result
+
+
 def count(table, target):
     result = 0
 
@@ -45,6 +87,8 @@ def part_1():
     my_output = get_input()
     stable = False
     iterations = 0
+    free = ord('L')
+    occu = ord('#')
 
     while not stable:
         my_input = copy.deepcopy(my_output)
@@ -55,20 +99,44 @@ def part_1():
             for x in range(len(my_input[0])):
                 symbol = my_input[y][x]
 
-                if symbol == ord('L'):
-                    if find_adjacent(my_input, x, y, ord('#')) == 0:
-                        my_output[y][x] = ord('#')
+                if symbol == free:
+                    if find_adjacent_2(my_input, x, y, occu) == 0:
+                        my_output[y][x] = occu
                         stable = False
-                elif symbol == ord('#'):
-                    if find_adjacent(my_input, x, y, ord('#')) > 3:
-                        my_output[y][x] = ord('L')
+                elif symbol == occu:
+                    if find_adjacent_2(my_input, x, y, occu) > 3:
+                        my_output[y][x] = free
                         stable = False
 
-    return count(my_output, ord('#'))
+    return count(my_output, occu)
 
 
 def part_2():
-    return 2
+    my_output = get_input()
+    stable = False
+    iterations = 0
+    free = ord('L')
+    occu = ord('#')
+
+    while not stable:
+        my_input = copy.deepcopy(my_output)
+        stable = True
+        iterations += 1
+
+        for y in range(len(my_input)):
+            for x in range(len(my_input[0])):
+                symbol = my_input[y][x]
+
+                if symbol == free:
+                    if find_visible(my_input, x, y, occu) == 0:
+                        my_output[y][x] = occu
+                        stable = False
+                elif symbol == occu:
+                    if find_visible(my_input, x, y, occu) > 4:
+                        my_output[y][x] = free
+                        stable = False
+    
+    return count(my_output, occu)
 
 
 def main():
