@@ -48,7 +48,21 @@ def part_2():
     my_input = get_input()
     pos = [0, 0, 0]
     waypoint = [1, 10, 0]
-    
+
+    for instr in my_input:
+        cmd = instr[0]
+
+        if cmd == 'F':
+            print(instr)
+        elif cmd == 'L':
+            print(instr)
+        elif cmd == 'R':
+            print(instr)
+        else:
+            waypoint = move(waypoint, instr)
+
+    return waypoint
+
 
 def main():
     print(part_1())
