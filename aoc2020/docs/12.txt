@@ -106,3 +106,7 @@ position is 214 + 72 = 286.
 Figure out where the navigation instructions actually lead. What is the 
 Manhattan distance between that location and the ship's starting position?
 
+Your puzzle answer was 26841.
+
+Both parts of this puzzle are complete! They provide two gold stars: **
+

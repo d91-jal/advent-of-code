@@ -9,7 +9,7 @@ def get_input():
     return my_input
 
 
-# pos = [north_coord, east_coord, heading]
+# pos = [east_coord, north_coord, heading]
 # change = command from input file
 def move(pos, change):
     cmd = change[0]
@@ -34,9 +34,17 @@ def move(pos, change):
     return pos
 
 
+def rotate(pos, angle):
+    # Rotate a vector counterclockwise by i degrees => x' = x*cos(i) - y*sin(i), y' = x*sin(i) + y*cos(i)
+    # Ref: https://en.wikipedia.org/wiki/Rotation_matrix
+    x = round(pos[0] * math.cos(angle) - pos[1] * math.sin(angle))
+    y = round(pos[0] * math.sin(angle) + pos[1] * math.cos(angle))
+    return [x, y]
+
+
 def part_1():
     my_input = get_input()
-    pos = [0, 0, 0]  # pos = [north_coord, east_coord, heading]
+    pos = [0, 0, 0]  # pos = [east_coord, north_coord, heading]
 
     for instr in my_input:
         pos = move(pos, instr)
@@ -47,21 +55,23 @@ def part_1():
 def part_2():
     my_input = get_input()
     pos = [0, 0, 0]
-    waypoint = [1, 10, 0]
+    waypoint = [10, 1]
 
     for instr in my_input:
         cmd = instr[0]
+        arg = int(instr[1:])
 
         if cmd == 'F':
-            print(instr)
+            pos[0] += arg * waypoint[0]
+            pos[1] += arg * waypoint[1]
         elif cmd == 'L':
-            print(instr)
+            waypoint = rotate(waypoint, math.pi * (arg / 180.0))
         elif cmd == 'R':
-            print(instr)
+            waypoint = rotate(waypoint, -math.pi * (arg / 180.0))
         else:
             waypoint = move(waypoint, instr)
 
-    return waypoint
+    return int(abs(pos[0]) + abs(pos[1]))
 
 
 def main():
