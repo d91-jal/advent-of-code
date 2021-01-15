@@ -147,3 +147,7 @@ timestamp will be larger than 100000000000000!
 
 What is the earliest timestamp such that all of the listed bus IDs depart at 
 offsets matching their positions in the list?
+
+Your puzzle answer was 867295486378319.
+
+Both parts of this puzzle are complete! They provide two gold stars: **
