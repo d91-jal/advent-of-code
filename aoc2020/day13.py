@@ -15,7 +15,7 @@ def greatest_common_divisor(a, b):
    return a
 
 
-def least_common_multiple(ints):
+def smallest_common_multiple(ints):
     result = ints[0]
     
     for i in ints[1:]:
@@ -40,7 +40,8 @@ def part_2():
     buses = [(i, int(x)) for i, x in enumerate(my_input) if x != "x"]
     # Start with the first bus in the list, looping over its schedule until we 
     # find a matching pattern with any other bus in the list. We then have a 
-    # recurring pattern for those two -> Update timestamp increase.
+    # recurring pattern for those two -> Update timestamp increase as smallest
+    # common multiple of those schedules.
     # Then repeat until all buses have been matched.
     found = [buses[0]]
     timestamp = sum(found[0])
@@ -54,21 +55,9 @@ def part_2():
         if len(found) == len(buses):
             return timestamp
 
-        timestamp += least_common_multiple([b for (a, b) in found])
+        timestamp += smallest_common_multiple([b for (a, b) in found])
 
     return 0
-
-
-def test():
-    for i in range(1000000):
-        candidate = i * 67
-        if candidate % 7 == 7-1 and \
-        candidate % 59 == 59-2 and \
-        candidate % 61 == 61-3 :            
-            print(candidate)
-            break
-
-    return 2
 
 
 def main():
