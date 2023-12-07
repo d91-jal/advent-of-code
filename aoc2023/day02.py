@@ -1,4 +1,9 @@
 def part_1(my_input):
+    for row in my_input:
+        # Remove game ID, split actual hands into separate items.
+        hands = row.split(":")[1].split(";")
+        print(hands)
+
     return
 
 
