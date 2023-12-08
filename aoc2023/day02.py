@@ -1,10 +1,29 @@
 def part_1(my_input):
+    offset = { "red": 0, "green": 1, "blue": 2 }
+    id = 0
+    result = 0
+
     for row in my_input:
+        id += 1
         # Remove game ID, split actual hands into separate items.
         hands = row.split(":")[1].split(";")
-        print(hands)
+        impossible = False
 
-    return
+        for hand in hands:
+            cubes = hand.split(",")
+
+            for cube in cubes:
+                num_type = cube.strip().split(" ")
+
+                if int(num_type[0]) - offset[num_type[1]] > 12:
+                    impossible = True
+                    #print(id, num_type)
+
+        if not impossible: 
+            print(id, "good")
+            result += id
+
+    return result
 
 
 def part_2(my_input):
