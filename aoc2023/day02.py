@@ -17,17 +17,34 @@ def part_1(my_input):
 
                 if int(num_type[0]) - offset[num_type[1]] > 12:
                     impossible = True
-                    #print(id, num_type)
 
         if not impossible: 
-            print(id, "good")
             result += id
 
     return result
 
 
 def part_2(my_input):
-    return
+    result = 0
+    index = { "red": 0, "green": 1, "blue": 2 }
+
+    for row in my_input:
+        # Remove game ID, split actual hands into separate items.
+        hands = row.split(":")[1].split(";")
+        rgb_max = [0, 0, 0]
+
+        for hand in hands:
+            cubes = hand.split(",")
+
+            for cube in cubes:
+                num_type = cube.strip().split(" ")
+
+                if int(num_type[0]) > rgb_max[index[num_type[1]]]:
+                    rgb_max[index[num_type[1]]] = int(num_type[0])
+
+        result += rgb_max[0] * rgb_max[1] * rgb_max[2]
+
+    return result    
 
 
 def main():
