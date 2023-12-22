@@ -1,9 +1,29 @@
+def find_adjacent_sum(my_input, row, col):
+    return 0
+
+
 def part_1(my_input):
+    non_symbols = set('0123456789.')
+    digits = set('0123456789')
+    result = 0 
+
+    for row in my_input:  # row in range(0, len(my_input) - 1):
+        ints = [(s, row.index(s)) for s in row.split(".") if len(s) > 0]# [int(s) for s in row.split(".") if s.isdigit()]
+        print(ints)
+
+                
+
+        #result += find_adjacent_sum(my_input, row, col)
+                # print(my_input[row][col])
+        
     return
 
 
 def part_2(my_input):
     return
+
+
+
 
 
 def main():
