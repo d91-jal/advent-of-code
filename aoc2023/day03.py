@@ -1,6 +1,3 @@
-def find_adjacent_sum(my_input, row, col):
-    return 0
-
 def has_symbol(my_input, row, start_col, end_col):
     non_symbols = set('0123456789.')
     from_row = max(0, row - 1)
@@ -108,7 +105,7 @@ def part_2(my_input):
 
 
 def main():
-    # Read input into an array.
+    # Read input into a list.
     input_file = open("resources/input03.txt")
     my_input = input_file.read().strip().split("\n")
     input_file.close()

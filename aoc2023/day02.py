@@ -48,7 +48,7 @@ def part_2(my_input):
 
 
 def main():
-    # Read input into an array.
+    # Read input into a list.
     input_file = open("resources/input02.txt")
     my_input = input_file.read().strip().split("\n")
     input_file.close()
