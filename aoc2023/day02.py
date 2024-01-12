@@ -1,24 +1,12 @@
 def part_1(my_input):
-    offset = { "red": 0, "green": 1, "blue": 2 }
-    id = 0
+    offset = {"red": 0, "green": 1, "blue": 2}
     result = 0
 
-    for row in my_input:
-        id += 1
+    for id, row in enumerate(my_input, start=1):
         # Remove game ID, split actual hands into separate items.
         hands = row.split(":")[1].split(";")
-        impossible = False
 
-        for hand in hands:
-            cubes = hand.split(",")
-
-            for cube in cubes:
-                num_type = cube.strip().split(" ")
-
-                if int(num_type[0]) - offset[num_type[1]] > 12:
-                    impossible = True
-
-        if not impossible: 
+        if not any(int(num_type.split()[0]) - offset[num_type.split()[1]] > 12 for hand in hands for num_type in hand.split(",")):
             result += id
 
     return result

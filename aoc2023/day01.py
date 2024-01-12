@@ -17,33 +17,17 @@ def part_1(my_input):
 
 
 def part_2(my_input):
-    num_values = [("0", 0), ("1", 1), ("2", 2), ("3", 3), ("4", 4), \
-                  ("5", 5), ("6", 6), ("7", 7), ("8", 8), ("9", 9), \
-                  ("zero", 0), ("one", 1), ("two", 2), ("three", 3), \
-                  ("four", 4), ("five", 5), ("six", 6), ("seven", 7), \
-                  ("eight", 8), ("nine", 9)]
+    num_values = {"0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9,
+                  "zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9}
 
     result = 0
 
     for row in my_input:
-        first_num_pos_and_value = (len(row), 0)
-        last_num_pos_and_value = (-1, 0) 
-    
-        for (num, value) in num_values:
-            pos = row.find(num)
+        occurrences = [row.find(num) for num in num_values.keys()]
+        first_pos, first_value = min((pos, value) for pos, value in zip(occurrences, num_values.values()) if pos >= 0)
+        last_pos, last_value = max((pos, value) for pos, value in zip(occurrences, num_values.values()) if pos >= 0)
 
-            if pos < 0:
-                continue
-
-            if pos < first_num_pos_and_value[0]:
-                first_num_pos_and_value = (pos, value)
-
-            pos = row.rfind(num)
-
-            if pos > last_num_pos_and_value[0]:
-                last_num_pos_and_value = (pos, value)
-        
-        result += (10 * first_num_pos_and_value[1]) + last_num_pos_and_value[1]
+        result += 10 * first_value + last_value
 
     return result
 
