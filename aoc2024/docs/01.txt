@@ -78,7 +78,7 @@ distances between all of the pairs you found. In the example above, this is
 Your actual left and right lists contain many location IDs. What is the total 
 distance between your lists?
 
-Your puzzle answer was 2113135.
+Your puzzle answer was 1506483.
 
 The first half of this puzzle is complete! It provides one gold star: *
 
