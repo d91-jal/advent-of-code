@@ -7,11 +7,25 @@ def part_1(my_input):
     
     return result
 
+
 def part_2(my_input):
+    list1, list2 = zip(*(map(int, line.split()) for line in my_input))
+    list1 = sorted(list(list1))
+    map2 = {}
+    
+    for num in list2:
+        if num in map2:
+            map2[num] += 1
+        else:
+            map2[num] = 1
+
     result = 0
 
-    return result
+    for num in list1:
+        if num in map2:
+            result += num * map2[num]
 
+    return result
 
 
 def main():
@@ -21,7 +35,7 @@ def main():
     input_file.close()
 
     print(part_1(my_input))
-    #print(part_2(my_input))
+    print(part_2(my_input))
 
 
 if __name__ == "__main__":
