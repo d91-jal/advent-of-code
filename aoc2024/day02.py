@@ -29,18 +29,6 @@ def part_1(my_input):
     
         if is_safe(levels):
             result += 1
-#        levels = [int(a) for a in line.split()]
-#        diffs = [b - a for a, b in zip(levels[:-1], levels[1:])]
-#        growing = diffs[0] > 0
-#        safe = True
-        
-#        for i in diffs:
-#            if i == 0 or abs(i) > 3 or (i > 0) != growing:
-#                safe = False
-#                break
-
-#        if safe:
-#            result += 1
             
     return result
 
@@ -54,6 +42,7 @@ def part_2(my_input):
         if is_safe(levels):
             result += 1
         else:
+            # Check if there is a solution when removing one item.
             all_sub_levels = all_sub_lists(levels)
 
             for sub_levels in all_sub_levels:
