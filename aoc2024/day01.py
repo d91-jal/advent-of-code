@@ -31,7 +31,7 @@ def part_2(my_input):
 def main():
     # Read input into a list.
     input_file = open("aoc2024/resources/input01.txt")
-    my_input = input_file.readlines()
+    my_input = input_file.read().strip().split("\n")
     input_file.close()
 
     print(part_1(my_input))
