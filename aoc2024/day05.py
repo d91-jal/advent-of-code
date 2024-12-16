@@ -1,3 +1,5 @@
+import itertools
+
 def validate_page(pre_pages, post_pages, dep_pages):
     for page in pre_pages:
         if page not in dep_pages:
@@ -66,20 +68,23 @@ def part_2(my_input):
         page_list = [int(a) for a in batch.split(",")]
         fails = validate_batch(page_list, deps)
 
-        # If not validated, re-sort by number of dependencies and re-validate.
         if len(fails) > 0:
-            print(page_list, fails)
-            #sorted_page_list = sorted(page_list, key=lambda x: len(deps.get(x, [])))
+            # Sigh, brute force lists with errors. Better solution should be possible.
+            tests = list(itertools.permutations(page_list, len(page_list)))
 
-            #if validate_batch(sorted_page_list, deps):
-            #    result += sorted_page_list[(len(sorted_page_list) - 1) // 2]
+            for test in tests:
+                fails = validate_batch(test, deps)
+                
+                if len(fails) == 0:
+                    result += test[(len(test) - 1) // 2]
+                    break
 
     return result
 
 
 def main():
     # Read input into a list.
-    input_file = open("aoc2024/resources/test05.txt")
+    input_file = open("aoc2024/resources/input05.txt")
     my_input = [a.split() for a in input_file.read().strip().split('\n\n')]
     input_file.close()
     print(part_1(my_input))
