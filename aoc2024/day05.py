@@ -1,4 +1,3 @@
-import itertools
 
 def validate_page(pre_pages, post_pages, dep_pages):
     for page in pre_pages:
@@ -21,12 +20,18 @@ def validate_batch(pages, dep_pages):
         page = pages[i]
 
         if page in dep_pages:
-            if validate_page(pages[:i], pages[i:], dep_pages[page]) >= 0:
-                fails += [i]
+            fail = validate_page(pages[:i], pages[i:], dep_pages[page])
+            if fail >= 0:
+                fails += [i, pages.index(fail)]
+                break
 
         i += 1
 
     return fails
+
+
+def middle(pages):
+    return pages[(len(pages) - 1) // 2]
 
 
 def build_dependency_map(my_input):
@@ -49,12 +54,12 @@ def part_1(my_input):
 
     # For each page in a batch, check that all dependencies are in fulfilled.
     for batch in my_input[1]:
-        page_list = [int(a) for a in batch.split(",")]
-        fails = validate_batch(page_list, deps)
+        pages = [int(a) for a in batch.split(",")]
+        fails = validate_batch(pages, deps)
 
         # If validated, or if the page has no dependencies:
         if len(fails) == 0:
-            result += page_list[(len(page_list) - 1) // 2]
+            result += middle(pages)
 
     return result
 
@@ -65,19 +70,17 @@ def part_2(my_input):
 
     # For each page in a batch, check that all dependencies are in fulfilled.
     for batch in my_input[1]:
-        page_list = [int(a) for a in batch.split(",")]
-        fails = validate_batch(page_list, deps)
+        pages = [int(a) for a in batch.split(",")]
+        fails = validate_batch(pages, deps)
+        
+        if len(fails) == 0: continue
 
-        if len(fails) > 0:
-            # Sigh, brute force lists with errors. Better solution should be possible.
-            tests = list(itertools.permutations(page_list, len(page_list)))
-
-            for test in tests:
-                fails = validate_batch(test, deps)
+        # If a rule is broken, switch places of the offending pages.
+        while len(fails) > 0:
+            pages[fails[0]], pages[fails[1]] = pages[fails[1]], pages[fails[0]]
+            fails = validate_batch(pages, deps)
                 
-                if len(fails) == 0:
-                    result += test[(len(test) - 1) // 2]
-                    break
+        result += middle(pages)
 
     return result
 
