@@ -12,7 +12,6 @@ def build_map(my_input):
         if x >= 0:
             dir = (-1, 0)
             pos = (y, x)
-            charmap[pos[0]][pos[1]] = 'X'
         else:
             y += 1
 
@@ -54,6 +53,8 @@ def part_1(my_input):
     result = 1
     done = False
     charmap, pos, dir = build_map(my_input)
+    charmap[pos[0]][pos[1]] = 'X'
+
         
     # Traverse the map, updating the count of new locations visited.
     while not done:
@@ -80,6 +81,7 @@ def part_2(my_input):
     width = len(my_input[0])
     done = False
     charmap, pos, dir = build_map(my_input)
+    charmap[pos[0]][pos[1]] = '.'
     turn_hist = []
         
     # Each time we should take a step forward, look to the right and check if
@@ -101,16 +103,12 @@ def part_2(my_input):
                 result += 1
 
             pos = next
-            charmap[pos[0]][pos[1]] = 'X'
-        elif charmap[next[0]][next[1]] == 'X':
-            pos = next
-
     return result
 
 
 def main():
     # Read input into a list.
-    input_file = open("aoc2024/resources/input06.txt")
+    input_file = open("aoc2024/resources/test06.txt")
     my_input = input_file.read().strip().split("\n")
     input_file.close()
 
