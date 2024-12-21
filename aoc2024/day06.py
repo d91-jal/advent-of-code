@@ -80,35 +80,60 @@ def part_2(my_input):
     height = len(my_input)
     width = len(my_input[0])
     done = False
-    charmap, pos, dir = build_map(my_input)
-    charmap[pos[0]][pos[1]] = '.'
-    turn_hist = []
+    charmap, orig_pos, orig_dir = build_map(my_input)
+    charmap[orig_pos[0]][orig_pos[1]] = '.'
+    path = []
+    pos = orig_pos
+    dir = orig_dir
         
-    # Each time we should take a step forward, look to the right and check if
-    # we have already done a turn on that path. That will lead to a loop.
+    # First pass, build reference path.
     while not done:
         next = tuple(map(lambda x, y: x + y, pos, dir))
         
         if next[0] < 0 or next[1] < 0 or next[0] >= height or next[1] >= width:
             done = True
             break
-        elif my_input[next[0]][next[1]] == '#':
-            turn_hist.append(pos)
-            dir = turn_right(dir)
         elif charmap[next[0]][next[1]] == '.':
-            foo = check_right(charmap, pos, dir, turn_hist)
-
-            if len(foo) > 0: 
-                #print(pos, foo)
-                result += 1
-
             pos = next
+            if pos not in path: path.append(pos) 
+        elif my_input[next[0]][next[1]] == '#':
+            dir = turn_right(dir)
+
+
+    # Test with an obstacle for each step along the original path.
+    for i in range(len(path)):
+        pos = orig_pos
+        dir = orig_dir
+        test_pos = path[i]
+        charmap[test_pos[0]][test_pos[1]] = '#'
+        done = False
+        new_len = 0
+
+        while not done:
+            next = tuple(map(lambda x, y: x + y, pos, dir))
+            
+            if next[0] < 0 or next[1] < 0 or next[0] >= height or next[1] >= width:
+                done = True
+                break
+            elif charmap[next[0]][next[1]] == '#':
+                dir = turn_right(dir)
+            elif charmap[next[0]][next[1]] == '.':
+                pos = next
+                new_len += 1
+                    
+                    
+            if new_len > (len(path) * 2):
+                result += 1
+                done = True
+
+        charmap[test_pos[0]][test_pos[1]] = '.'
+        
     return result
 
 
 def main():
     # Read input into a list.
-    input_file = open("aoc2024/resources/test06.txt")
+    input_file = open("aoc2024/resources/input06.txt")
     my_input = input_file.read().strip().split("\n")
     input_file.close()
 
