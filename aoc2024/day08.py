@@ -1,5 +1,47 @@
 def part_1(my_input):
-    result = 0    
+    result = 0   
+    nodes = {}
+    antinodes = {}
+    height = len(my_input)
+    width = len(my_input[0])
+
+    # Loop over the input.
+    for i in range(height):
+        line = my_input[i]
+
+        for j in range(width):
+            if line[j] != '.':
+                if line[j] not in nodes:
+                    # For each non . character, add it and its coords to the node map if not already present.
+                    nodes[line[j]] = [(i, j)]
+                else:
+                    # If it is present, calculate the antinode coords for each new pair of coords and add 1 to the result 
+                    # if the antinode coords are not in the node map.
+                    for node in nodes[line[j]]:
+                        # The antinodes are placed in line with the two nodes, at the same distance
+                        # from each node as the distance between the two nodes.
+                        offset = (abs(i - node[0]), abs(j - node[1]))
+                        y = min(node[0], i) - offset[0]
+                        x = node[1] + offset[1] if j < node[1] else node[1] - offset[1]
+                        antinode = (y, x)
+                        
+                        if 0 <= y < height and 0 <= x < width and antinode not in antinodes:
+                            result += 1
+                            antinodes[antinode] = antinode
+
+                        y = max(node[0], i) + offset[0]
+                        x = j - offset[1] if j < node[1] else j + offset[1]
+                        antinode = (y, x)
+
+                        if 0 <= y < height and 0 <= x < width and antinode not in antinodes:
+                            result += 1
+                            antinodes[antinode] = antinode
+
+                    # Also, add the new coords to the list of coords for that character.
+                    nodes[line[j]].append((i, j))
+    
+    
+    
     return result
 
 
