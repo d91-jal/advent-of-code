@@ -88,3 +88,6 @@ new total calibration result of 11387.
 Using your new knowledge of elephant hiding spots, determine which equations 
 could possibly be true. What is their total calibration result?
 
+Your puzzle answer was 509463489296712.
+
+Both parts of this puzzle are complete! They provide two gold stars: **
