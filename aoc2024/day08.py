@@ -1,5 +1,5 @@
-def part_1(my_input):
-    result = 0   
+def solve(my_input, rep_range):
+    result = 0    
     nodes = {}
     antinodes = {}
     height = len(my_input)
@@ -21,33 +21,38 @@ def part_1(my_input):
                         # The antinodes are placed in line with the two nodes, at the same distance
                         # from each node as the distance between the two nodes.
                         offset = (abs(i - node[0]), abs(j - node[1]))
-                        y = min(node[0], i) - offset[0]
-                        x = node[1] + offset[1] if j < node[1] else node[1] - offset[1]
-                        antinode = (y, x)
                         
-                        if 0 <= y < height and 0 <= x < width and antinode not in antinodes:
-                            result += 1
-                            antinodes[antinode] = antinode
+                        for rep in rep_range:
+                            y = min(node[0], i) - rep * offset[0]
+                            x = node[1] + rep * offset[1] if j < node[1] else node[1] - rep * offset[1]
+                            antinode = (y, x)
+                            
+                            if 0 <= y < height and 0 <= x < width and antinode not in antinodes:
+                                result += 1
+                                antinodes[antinode] = antinode
 
-                        y = max(node[0], i) + offset[0]
-                        x = j - offset[1] if j < node[1] else j + offset[1]
-                        antinode = (y, x)
+                            y = max(node[0], i) + rep * offset[0]
+                            x = j - rep * offset[1] if j < node[1] else j + rep * offset[1]
+                            antinode = (y, x)
 
-                        if 0 <= y < height and 0 <= x < width and antinode not in antinodes:
-                            result += 1
-                            antinodes[antinode] = antinode
+                            if 0 <= y < height and 0 <= x < width and antinode not in antinodes:
+                                result += 1
+                                antinodes[antinode] = antinode
 
                     # Also, add the new coords to the list of coords for that character.
                     nodes[line[j]].append((i, j))
-    
-    
-    
+
     return result
+
+
+def part_1(my_input):
+    # Solve for a single offset.
+    return solve(my_input, range(1, 2))
 
 
 def part_2(my_input):
-    result = 0    
-    return result
+    # Solve for a range of offsets 0 to the size of the input.
+    return solve(my_input, range(len(my_input)))
 
 
 def main():

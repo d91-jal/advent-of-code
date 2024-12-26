@@ -151,3 +151,7 @@ on every antenna:
 
 Calculate the impact of the signal using this updated model. How many unique 
 locations within the bounds of the map contain an antinode?
+
+Your puzzle answer was 1045.
+
+Both parts of this puzzle are complete! They provide two gold stars: **
