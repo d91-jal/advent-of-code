@@ -1,4 +1,5 @@
 def generate_layout(disk_map):
+    # Build a hash table of the disk layout - { file_id : [size, empty_space] } 
     result = {}
     id_counter = 0
 
@@ -23,27 +24,37 @@ def compact_layout(layout):
     pos = 0
 
     # Loop until front and back pointers collide.
-    for i in range(len(layout)):
-        if i > back_file:
+    for front_file in range(len(layout)):
+        if front_file > back_file:
             break
 
         # Process the segment, loop over actual file content and increment checksum.
-        for j in range(layout[i][0]):
-            checksum += i * pos
+        # (could be calculated arithmetically but easier to debug this way)
+        for _ in range(layout[front_file][0]):
+            checksum += front_file * pos
             pos += 1
 
         # Then fill the empty space of the segment from the back of the file list.
-        for j in range(layout[i][1]):
+        for _ in range(layout[front_file][1]):
             while layout[back_file][0] == 0:
                 back_file -= 1
 
-            if layout[back_file][0] > 0 and back_file > i:
+            if layout[back_file][0] > 0 and back_file > front_file:
                 checksum += back_file * pos
                 layout[back_file][0] -= 1
                 pos += 1
                                                 
     return checksum
             
+
+def compact_layout_by_file(layout):
+    checksum = 0
+    back_file = len(layout) - 1
+    pos = 0
+
+    # Loop until front and back pointers collide.
+    return checksum
+
 
 def part_1(my_input):
     layout = generate_layout(my_input[0])
@@ -53,6 +64,8 @@ def part_1(my_input):
 
 def part_2(my_input):
     result = 0
+    layout = generate_layout(my_input[0])
+    result = compact_layout_by_file(layout)
     return result
 
 
