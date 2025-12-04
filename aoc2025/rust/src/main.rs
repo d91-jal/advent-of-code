@@ -1,5 +1,6 @@
 // ===== main.rs =====
 
+mod common;
 mod days;
 use std::env;
 
@@ -17,9 +18,8 @@ fn main() {
 
     let part = args.next().and_then(|p| p.parse::<u32>().ok());
 
-    let filename = format!("resources/day{:02}.txt", day);
-    let input = std::fs::read_to_string(&filename)
-        .unwrap_or_else(|_| panic!("Could not read {}", filename));
+    let filename = format!("../resources/input{:02}.txt", day);
+    let input = crate::common::utils::read_input(&filename);
 
     match day {
         1 => dispatch(&input, part, days::day01::part1, days::day01::part2),

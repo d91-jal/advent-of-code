@@ -2,27 +2,16 @@
 name = "aoc2025"
 version = "0.1.0"
 edition = "2021"
-authors = ["<your name>"]
+authors = ["johan"]
 license = "MIT"
 description = "Advent of Code 2025 solutions in Rust"
 
-[dependencies]
-
-# Om du senare vill lägga till t.ex. clap, reqwest eller regex kan du göra det här.
-
-[dev-dependencies]
-# För testhjälp om du vill lägga till assert-makron eller liknande senare.
 
 [profile.release]
-# Advent of Code kör ofta stora inputs; snabbare körningar är trevligt.
+# Optimize for runtime performance.
 opt-level = 3
 
 [profile.dev]
-# Snabbare kompilering under utveckling, utan trög debug-kod.
+# Optimize for compilation speed.
 opt-level = 1
 
-[alias]
-# cargo d 5 → cargo run -- 5
-d = "run --"
-# cargo t  → cargo test
-t = "test -- --nocapture"

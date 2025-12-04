@@ -5,6 +5,8 @@ __pycache__/
 # === Rust / Cargo ===
 target/
 **/*.rs.bk
+.cargo/
+Cargo.lock
 
 # === VS Code ===
 .vscode/
