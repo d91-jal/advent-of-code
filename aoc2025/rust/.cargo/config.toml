@@ -1,0 +1,5 @@
+[alias]
+# cargo d 5 → cargo run -- 5
+d = "run --"
+# cargo t  → cargo test
+t = "test -- --nocapture"
