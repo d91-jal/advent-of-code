@@ -19,15 +19,38 @@ fn parse(input: &str) -> Vec<Vec<char>> {
 
 pub fn part1(input: &str) -> i64 {
     let grid = parse(input);
+    analyze_accessible_positions(&grid).0
+}
+
+pub fn part2(input: &str) -> i64 {
+    let mut grid = parse(input);
+    let mut result: i64 = 0;
+
+    while analyze_accessible_positions(&grid).0 > 0 {
+        let (accessible_count, accessible_positions) = analyze_accessible_positions(&grid);
+        result += accessible_count;
+
+        for (r, c) in accessible_positions {
+            grid[r][c] = '#';
+        }
+    }
+
+    result
+}
+
+
+fn analyze_accessible_positions(grid: &Vec<Vec<char>>) -> (i64, Vec<(usize, usize)>) {
+    let mut accessible: i64 = 0;
+    let mut accessible_positions: Vec<(usize, usize)> = Vec::new();
 
     if grid.is_empty() {
-        return 0;
+        return (accessible, accessible_positions);
     }
 
     let rows = grid.len();
     let cols = grid[0].len();
-    let mut accessible: i64 = 0;
 
+    // Go through each cell in the grid
     for r in 0..rows {
         for c in 0..cols {
             if grid[r][c] != '@' {
@@ -36,6 +59,7 @@ pub fn part1(input: &str) -> i64 {
 
             let mut count_adj = 0;
 
+            // If the cell is occupied, check adjacent cells and count how many are occupied.
             for (dr, dc) in &OFFSETS {
                 let nr = r as isize + dr;
                 let nc = c as isize + dc;
@@ -49,16 +73,12 @@ pub fn part1(input: &str) -> i64 {
 
             if count_adj < 4 {
                 accessible += 1;
+                accessible_positions.push((r, c));
             }
         }
     }
 
-    accessible
-}
-
-pub fn part2(input: &str) -> i64 {
-    let grid = parse(input);
-    0
+    (accessible, accessible_positions)
 }
 
 #[cfg(test)]

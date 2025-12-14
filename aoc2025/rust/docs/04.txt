@@ -199,3 +199,7 @@ a total of 43 rolls of paper can be removed.
 
 Start with your original diagram. How many rolls of paper in total can be
 removed by the Elves and their forklifts?
+
+Your puzzle answer was 8910.
+
+Both parts of this puzzle are complete! They provide two gold stars: **
