@@ -27,6 +27,7 @@ fn main() {
         3 => dispatch(&input, part, days::day03::part1, days::day03::part2),
         4 => dispatch(&input, part, days::day04::part1, days::day04::part2),
         5 => dispatch(&input, part, days::day05::part1, days::day05::part2),
+        6 => dispatch(&input, part, days::day06::part1, days::day06::part2),
         _ => panic!("Day {} not implemented", day),
     }
 }
